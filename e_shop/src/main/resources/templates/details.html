@@ -1,0 +1,261 @@
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout = "http://ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec = "http://www.thymeleaf.org/extras/spring-security" layout:decorator = "layout/main.html">
+
+<div layout:fragment="site_content">
+
+    <div class="container mt-2">
+        <div class="row">
+
+            <div class="col-3 mt-2">
+                <ul class="list-group mb-3" xmlns:th = "http://www.thymeleaf.org">
+                    <li class="list-group-item active" style="font-weight:bolder;color: white;background-color: rgba(21,97,69,0.93)" th:text="#{li.categories}"></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/cart.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.AllItems}"></a></li>
+                    <li class="list-group-item"><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/phone.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Phones}"></a></li>
+                    <!--                <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'icons/laptop.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Laptops}"></a></li>-->
+                    <!--                <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'icons/smartwatch.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Watches}"></a></li>-->
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/television.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Televisions}"></a></li>
+                    <li class="list-group-item"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/controller.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#"  th:text="#{li.GameConsoles}"></a></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/clipboards.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Other}"></a></li>
+                </ul>
+
+                <ul class="list-group" xmlns:th = "http://www.thymeleaf.org">
+                    <li class="list-group-item active" style="font-weight:bolder;color: white;background-color: rgba(21,97,69,0.93)" th:text="#{li.brands}"></li>
+                    <li class="list-group-item" style="color: black">    Apple </li>
+                    <li class="list-group-item" style="color: black">     Samsung</li>
+                    <li class="list-group-item" style="color: black">     LG</li>
+                    <li class="list-group-item" style="color: black">    BOSCH </li>
+                    <li class="list-group-item" style="color: black">    Huawei </li>
+                    <li class="list-group-item" style="color: black">    XIAOMI </li>
+                    <li class="list-group-item" style="color: black">    HP</li>
+                    <li class="list-group-item" style="color: black"> Other</li>
+                </ul>
+
+                <div class="card mt-2"  xmlns:th = "http://www.thymeleaf.org">
+                    <div class="card-header" style="background-color: rgba(21,97,69,0.93)">
+                        <a style="font-weight:bolder;color: white" th:text="#{li.payments}"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row row-cols-1 row-cols-md-3">
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/mastercard.png'}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/visa.png'}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/paypal.png'}" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-3">
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/webmoney.png'}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/discover.png'}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/american.png'}" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-9 mt-2">
+                <div class="container-fluid">
+                    <div class="card" >
+                        <img style="height: 375px" th:src="${item.largePicURL}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <a style="font-weight: bold" class="card-title" th:text="${item.name}"></a>
+                            <h6 style="font-weight: bolder" th:text="'$' + ${item.price}"></h6>
+                            <p class="card-text" style="font-size: 90%" th:text="${item.description}"></p>
+                            <h6 style="font-weight: bolder">Brand: <a th:href="@{'/searchbybrand?name='+${item.brand.name}}" th:text="${item.brand.name} + ', ' + ${item.brand.country.name}"></a></h6>
+
+                            <div class="row justify-content-md-center mt-3" th:hidden="${pictures.isEmpty()}">
+
+                                <div class="col-6">
+                                    <h4 class="text-center" th:text="#{label.Screenshots}"> Screenshots </h4>
+                                    <div class="card" style="width: 350px;height: 400px">
+                                        <a id="details" href="#" onclick="details()" data-toggle="modal" data-target="#staticBackdrop"><img id="main-image" th:src="@{'/viewPicture?url='+${!pictures.isEmpty()?pictures.get(0).url:'null'}}" style="height: 380px"  class="card-img-top" alt="..."></a>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <div class="row">
+                                        <div class="col-2" th:each="pic:${pictures}" >
+                                            <div class="card text-center mt-2" th:id="${'card'+pic.id}"  style="width: 80px;height: 80px">
+                                                <img th:id="${pic.id}" th:data-id="${pic.id}" onmousemove="hover(this.getAttribute('data-id'))" onmouseleave="leave(this.getAttribute('data-id'))"  onclick="change(this.getAttribute('data-id'))" th:src="@{'/viewPicture?url='+${pic!=null?pic.url:'null'}}"  class="card-img-top" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer" >
+                            <img style="height: 15px;width: 15px;margin-left: 3px" th:each="i:${#numbers.sequence(0,item.getStars()-1,1)}" src="/icons/star2.jpg" class="card-img-top" alt="...">
+                            <img style="height: 15px;width: 15px;margin-right: 3px" th:each="i:${#numbers.sequence(0,5 -(item.getStars())-1,1)}" src="/icons/stard.jpeg" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+
+
+                    <form th:action="@{'/addToBasket'}" method="get" >
+                        <input type="hidden" name="item_id" th:value="${item.id}">
+                        <button class="btn btn-success mt-3 mb-3" ><span th:text="#{button.addBusket}"></span></button>
+                    </form>
+
+                    <form style="margin-bottom: 80px" th:action="@{'/addComment'}" method="post" sec:authorize="isAuthenticated()">
+                        <input type="hidden" name="item_id" th:value="${item.id}">
+                        <input type="hidden" name="user_id" th:value="${currentUser.id}">
+                        <div class="form-group" width="100%" height="40px">
+                            <textarea class="form-control" name="comment"></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <button class="btn btn-primary btn-sm float-right mb-3" ><span th:text="#{button.addComment}"></span></button>
+                        </div>
+                    </form>
+
+
+                    <ul class="list-group mt-3" style="margin-top: 20px">
+                        <li class="list-group-item" th:each="cmt : ${comments}">
+                            <div class="row">
+                                <div class="col-9">
+                                    <h4 th:text="${cmt.author.full_name}"></h4>
+                                    <input type="hidden" th:id="${'comment_value_'+cmt.id}" th:value="${cmt.comment}">
+                                    <span th:text="${cmt.comment}"></span>
+                                </div>
+                                <div class="col-3 float-right">
+                                    <small><span style="font-size: 110%" th:text="${#dates.format(cmt.addedDate, 'dd.MM.yyyy - HH:mm')}" class="float-right"></span></small><br/>
+                                    <a th:href="@{'/deleteComment?id='+${cmt.id}}" sec:authorize="isAuthenticated()" th:hidden="${currentUser.id != cmt.author.id && currentUser.roles.size()==1}" class="btn btn-danger btn-sm float-right" style="margin-left: 5px">-</a>
+                                    <button sec:authorize="isAuthenticated()" th:hidden="${currentUser.id != cmt.author.id}"   type="button" class="btn btn-dark btn-sm float-right" th:data-id="${cmt.id}"  onclick="editComment(this.getAttribute('data-id'))"  data-toggle="modal" data-target="#EditComment">!</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="EditComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" th:text="#{button.edit}"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{'/editComment'}" method="post" enctype="multipart/form-data">
+                        <div class="form-group" width="100%" height="40px">
+                            <input type="hidden" id="com_id" name="id">
+                            <textarea class="form-control" id="com_comment" name="comment" ></textarea>
+                        </div>
+                        <div class="form-group my-3">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{button.cancel}"></button>
+                            <button class="btn btn-primary float-right" th:text="#{button.edit}"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        const editComment = (id) =>{
+            document.getElementById("com_id").value = id;
+            document.getElementById("com_comment").value = document.getElementById("comment_value_"+id).value;
+
+        }
+    </script>
+
+
+    <script>
+        const change = (id) =>{
+            $(document).ready(function(){
+                $(document.getElementById(id)).click(function(){
+                    $("#main-image").attr("src", $(document.getElementById(id)).attr("src"));
+                });
+            });
+        }
+    </script>
+
+    <script>
+        const details = () =>{
+            $(document).ready(function(){
+                $("#details").click(function(){
+                    $("#modal-picture").attr("src", $("#main-image").attr("src"));
+                });
+            });
+        }
+    </script>
+
+    <script>
+        const hover = (id) => {
+            $(document).ready(function () {
+                $(document.getElementById(id)).mousemove(function () {
+                        $(document.getElementById("card"+id)).attr({"style":"border:solid #ec0094 2px;width: 100px;height: 100px;"});
+                    }
+                );
+            });
+        }
+    </script>
+
+    <script>
+        const leave = (id) => {
+            $(document).ready(function () {
+                $(document.getElementById(id)).mouseleave(function () {
+                        $(document.getElementById("card"+id)).attr({"style":""});
+                    }
+                );
+            });
+        }
+    </script>
+
+
+
+
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 700px;height: 800px">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active selected" data-interval="10000">
+                                <img src="" id="modal-picture" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item" data-interval="10000" th:each="pic:${pictures}">
+                                <img th:src="@{'/viewPicture?url='+${pic!=null?pic.url:'null'}}" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+</html>

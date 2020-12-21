@@ -1,0 +1,144 @@
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout = "http://ultraq.net.nz/thymeleaf/layout" layout:decorator = "layout/main.html">
+
+<div layout:fragment="site_content">
+
+    <div class="container mt-2">
+        <div class="row">
+
+
+            <div class="col-3 mt-2">
+
+                <ul class="list-group mb-3" xmlns:th = "http://www.thymeleaf.org">
+                    <li class="list-group-item active" style="font-weight:bolder;color: white;background-color: rgba(21,97,69,0.93)" th:text="#{li.categories}"></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/cart.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.AllItems}"></a></li>
+                    <li class="list-group-item"><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/phone.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Phones}"></a></li>
+                    <!--                <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'icons/laptop.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Laptops}"></a></li>-->
+                    <!--                <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'icons/smartwatch.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Watches}"></a></li>-->
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/television.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Televisions}"></a></li>
+                    <li class="list-group-item"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/controller.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#"  th:text="#{li.GameConsoles}"></a></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/clipboards.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Other}"></a></li>
+                </ul>
+
+                <ul class="list-group" xmlns:th = "http://www.thymeleaf.org">
+                    <li class="list-group-item active" style="font-weight:bolder;color: white;background-color: rgba(21,97,69,0.93)" th:text="#{li.brands}"></li>
+                    <li class="list-group-item" style="color: black">    Apple </li>
+                    <li class="list-group-item" style="color: black">     Samsung</li>
+                    <li class="list-group-item" style="color: black">     LG</li>
+                    <li class="list-group-item" style="color: black">    BOSCH </li>
+                    <li class="list-group-item" style="color: black">    Huawei </li>
+                    <li class="list-group-item" style="color: black">    XIAOMI </li>
+                    <li class="list-group-item" style="color: black">    HP</li>
+                    <li class="list-group-item" style="color: black"> Other</li>
+                </ul>
+
+                <div class="card mt-2"  xmlns:th = "http://www.thymeleaf.org">
+                    <div class="card-header" style="background-color: rgba(21,97,69,0.93)">
+                        <a style="font-weight:bolder;color: white" th:text="#{li.payments}"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row row-cols-1 row-cols-md-3">
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/mastercard.png'}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/visa.png'}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/paypal.png'}" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-3">
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/webmoney.png'}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/discover.png'}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="col">
+                                <img style="height: 60px;width: 60px" th:src="@{'/icons/american.png'}" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-9 mt-2">
+                <div class="container-fluid">
+
+                    <form th:action="@{'/searchDetails'}" method="get">
+                        <div class="row">
+                            <div class="col-3">
+                                <label th:text="#{label.name}"></label>
+                                <input class="form-control" type="text" name="name"  th:placeholder="#{placeholder}">
+                            </div>
+                            <div class="col-2">
+                                <label th:text="#{label.brands}"></label>
+                                <select class="form-control" name="brand_name">
+                                    <option th:text="---" th:value="---"></option>
+                                    <option th:each="bnd : ${brands}" th:text="${bnd.name}" th:value="${bnd.name}"></option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <label th:text="#{label.priceFrom}"></label>
+                                <input class="form-control" type="number" name="item_pricefrom">
+                            </div>
+                            <div class="col-2">
+                                <label th:text="#{label.priceTo}"></label>
+                                <input class="form-control" type="number" name="item_priceto">
+                            </div>
+                            <div class="col-3 mt-4">
+                                <button class="btn btn-primary" style="margin-top: 8px;background-color: rgba(21,97,69,0.93);width: 170px" th:text="#{button.search}"></button>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-5">
+                                <h4 style="" th:text="#{label.searchResult}"></h4>
+                            </div>
+                            <div class="col-4">
+                                <label style="float: right" th:text="#{label.orderByPrice}"></label>
+                            </div>
+                            <div class="col-3">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-secondary btn-sm" style="height: 30px">
+                                        <input type="radio" name="options" id="option2" value="ascending"> <p th:text="#{h5.asc}"></p>
+                                    </label>
+                                    <label class="btn btn-secondary btn-sm" style="height: 30px">
+                                        <input type="radio" name="options" id="option3" value="descending"> <p th:text="#{h5.desc}"></p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <div class="row row-cols-1 row-cols-md-3 mt-3">
+                        <div class="col mb-3" th:each="it : ${items}">
+                            <div class="card" >
+                                <img style="height: 125px" th:src="${it.getSmallPicURL()}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <a th:href="@{'/details/' + ${it.id}}" style="font-weight: bold" class="card-title" th:text="${it.getName()}"></a>
+                                    <h6 style="font-weight: bolder" th:text="'$' + ${it.getPrice()}"></h6>
+                                    <p class="card-text" style="font-size: 90%" th:text="${it.getDescription()}"></p>
+                                    <h6 style="font-weight: bolder" th:text="'BRAND: ' + ${it.brand.name} + ', ' + ${it.brand.country.name}"></h6>
+                                </div>
+                                <div class="card-footer" >
+                                    <img style="height: 15px;width: 15px;margin-left: 3px" th:each="i:${#numbers.sequence(0,it.getStars()-1,1)}" src="icons/star2.jpg" class="card-img-top" alt="...">
+                                    <img style="height: 15px;width: 15px;margin-right: 3px" th:each="i:${#numbers.sequence(0,5 -(it.getStars())-1,1)}" src="icons/stard.jpeg" class="card-img-top" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+</html>

@@ -1,0 +1,132 @@
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout = "http://ultraq.net.nz/thymeleaf/layout" layout:decorator = "layout/main.html" xmlns:sec = "http://www.thymeleaf.org/extras/spring-security">
+
+<div layout:fragment="site_content">
+
+    <div class="container mt-2">
+        <div class="row">
+
+
+            <div class="col-3 mt-2">
+                <ul class="nav flex-column" style="width: 100%">
+                    <li class="list-group-item active" style="font-weight:bolder;color: white;background-color: rgba(21,97,69,0.93)" th:text="#{text.adminpanel}"></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/users.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/usersAdmin'}" th:text="#{text.users}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/role.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/rolesAdmin'}" th:text="#{text.roles}"></a></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/cart.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/admin'}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')" th:text="#{text.items}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/brand.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/brandsAdmin'}" th:text="#{text.brands}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/languages.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/countriesAdmin'}" th:text="#{text.countries}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/list.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/categoriesAdmin'}" th:text="#{li.categories}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/list.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/soldItemsAdmin'}">soldItemAdmin</a></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/clipboards.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Other}"></a></li>
+                </ul>
+            </div>
+
+
+            <div class="col-9 mt-2">
+                <div class="container-fluid">
+
+                    <nav class="navbar navbar" style="background-color: white">
+                        <h3 th:text="#{text.items}"></h3>
+                        <button type="button" style="background-color: rgba(21,97,69,0.93)" class="btn btn-primary mt-1 mb-1" data-toggle="modal" data-target="#ADD" th:text="#{button.addItem}"></button>
+                    </nav>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col" th:text="#{label.name}"></th>
+                                <th scope="col" th:text="#{label.brands}"></th>
+                                <th scope="col" th:text="#{label.price}"></th>
+                                <th scope="col" th:text="#{label.operations}"></th>
+                            </tr>
+                        </thead>
+                        <tbody th:each="it : ${items}">
+                            <tr>
+                                <th width="5%" scope="row" th:text="${it.id}"></th>
+                                <td width="40%" th:text="${it.name}"></td>
+                                <td width="40%" th:text="${it.brand.name}"></td>
+                                <td width="40%" th:text="${it.price}"></td>
+                                <td width="15%">
+                                    <a th:href="@{'/detailsitem?id=' + ${it.id}}" style="font-weight: bold" class="btn btn-success btn-sm"  th:text="#{button.details}"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal fade" id="ADD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" th:text="#{button.add}"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/additem}" method="post">
+                        <div class="form-group">
+                            <label class="col-form-label" th:text="#{label.name}"></label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" th:text="#{label.description}"></label>
+                            <textarea class="form-control" name="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label th:text="#{label.price}"></label>
+                            <input type="number" class="form-control" name="price">
+                        </div>
+                        <div class="form-group">
+                            <label th:text="#{label.stars}"></label>
+                            <input type="number" class="form-control" name="stars">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" th:text="#{label.smallPicURL}"></label>
+                            <input type="text" class="form-control" name="smallPicURL">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" th:text="#{label.largePicURL}"></label>
+                            <input type="text" class="form-control" name="largePicURL">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" th:text="#{label.addedDate}"></label>
+                            <input type="date" class="form-control" name="addedDate">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" th:text="#{label.inTopPage}"></label>
+                            <select name="inTopPage" class="form-control" >
+                                <option th:value="${true}">YES</option>
+                                <option th:value="${false}">NO</option>
+                                <option>-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" th:text="#{label.brands}"></label>
+                            <select class="form-control" name="brand_id">
+                                <option th:each="bnd : ${brands}" th:text="${bnd.name}" th:value="${bnd.id}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{button.cancel}"></button>
+                            <button type="submit" class="btn btn-success float-right" th:text="#{button.add}"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+</html>

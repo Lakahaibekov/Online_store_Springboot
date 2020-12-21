@@ -1,0 +1,51 @@
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout = "http://ultraq.net.nz/thymeleaf/layout" layout:decorator = "layout/main.html">
+
+<div layout:fragment="site_content">
+
+    <div class="container mt-2">
+        <div class="row">
+
+            <div class="col-3 mt-2">
+                <ul class="list-group mb-3" xmlns:th = "http://www.thymeleaf.org">
+                    <li class="list-group-item active" style="font-weight:bolder;color: white;background-color: rgba(21,97,69,0.93)" th:text="#{li.categories}"></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/cart.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.AllItems}"></a></li>
+                    <li class="list-group-item"><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/phone.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Phones}"></a></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/television.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Televisions}"></a></li>
+                    <li class="list-group-item"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/controller.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#"  th:text="#{li.GameConsoles}"></a></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/clipboards.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Other}"></a></li>
+                </ul>
+            </div>
+
+            <div class="col-9 mt-2">
+                <div class="container-fluid">
+                    <div class="col-6 offset-3">
+                        <form th:action="@{'/auth'}" method="post">
+                            <div class="form-group">
+                                <label th:text="#{label.email}"></label>
+                                <input type="email" name="user_email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label th:text="#{label.password}"></label>
+                                <input type="password" name="user_password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-success float-right" style="background-color: rgba(21,97,69,0.93)" th:text="#{button.signin}"></button>
+                            </div>
+                        </form>
+                        <div style="display: inline; overflow: hidden">
+                            <span th:text="#{text.clickregister}"></span><a th:href="@{'/registration'}" th:text="#{text.here}">here</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+</html>

@@ -1,0 +1,104 @@
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout = "http://ultraq.net.nz/thymeleaf/layout" layout:decorator = "layout/main.html" xmlns:sec = "http://www.thymeleaf.org/extras/spring-security">
+
+<div layout:fragment="site_content">
+
+    <div class="container mt-2">
+        <div class="row">
+
+
+            <div class="col-3 mt-2">
+                <ul class="nav flex-column" style="width: 100%">
+                    <li class="list-group-item active" style="font-weight:bolder;color: white;background-color: rgba(21,97,69,0.93)" th:text="#{text.adminpanel}"></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/users.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/usersAdmin'}" th:text="#{text.users}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/role.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/rolesAdmin'}" th:text="#{text.roles}"></a></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/cart.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/admin'}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')" th:text="#{text.items}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/brand.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/brandsAdmin'}" th:text="#{text.brands}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/languages.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/countriesAdmin'}" th:text="#{text.countries}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/list.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/categoriesAdmin'}" th:text="#{li.categories}"></a></li>
+                    <li class="list-group-item" sec:authorize="hasRole('ROLE_ADMIN')"><img style="height: 20px;width: 20px;margin-left: 3px" th:src="@{'/icons/list.png'}" class="card-img-top" alt="...">   <a style="color: black" th:href="@{'/soldItemsAdmin'}">soldItemAdmin</a></li>
+                    <li class="list-group-item" ><img style="height: 20px;width: 20px;margin-left: 3px"  th:src="@{'/icons/clipboards.png'}" class="card-img-top" alt="...">   <a style="color: black" href="#" th:text="#{li.Other}"></a></li>
+                </ul>
+            </div>
+
+
+            <div class="col-9 mt-2">
+                <div class="container-fluid">
+
+                    <nav class="navbar navbar" style="background-color: white">
+                        <h3 th:text="#{text.users}"></h3>
+                        <button type="button" style="background-color: rgba(21,97,69,0.93)" class="btn btn-primary mt-1 mb-1" data-toggle="modal" data-target="#ADD" th:text="#{button.addUser}"></button>
+                    </nav>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col" th:text="#{label.email}"></th>
+                            <th scope="col" th:text="#{label.full_name}"></th>
+                            <th scope="col" th:text="#{text.roles}"></th>
+                            <th scope="col" th:text="#{label.operations}"></th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="user : ${users}">
+                        <tr>
+                            <th width="5%" scope="row" th:text="${user.id}"></th>
+                            <td width="40%" th:text="${user.email}"></td>
+                            <td width="40%" th:text="${user.full_name}"></td>
+                            <td width="40%" >
+                                <span th:each="rol : ${user.roles}" th:text="${rol.role}" style="display: block"></span>
+                            </td>
+                            <td width="15%">
+                                <a th:href="@{'/detailsUserAdmin?id=' + ${user.id}}" style="font-weight: bold" class="btn btn-success btn-sm"  th:text="#{button.details}"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal fade" id="ADD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" th:text="#{button.add}"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/adduser}" method="post">
+                        <div class="form-group">
+                            <label class="col-form-label" th:text="#{label.email}"></label>
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label th:text="#{label.full_name}"></label>
+                            <input type="text" class="form-control" name="full_name">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" th:text="#{label.password}"></label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{button.cancel}"></button>
+                            <button type="submit" class="btn btn-success float-right" th:text="#{button.add}"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+</html>
